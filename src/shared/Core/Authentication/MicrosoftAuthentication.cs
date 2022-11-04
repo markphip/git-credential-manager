@@ -428,12 +428,12 @@ namespace GitCredentialManager.Authentication
             string jsonStr = JsonConvert.SerializeObject(dcr);
             // Ensure the parent directory exists
             string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string parentDir = Path.Combine(home, ".devicecode");
+            string parentDir = Path.Combine(home, ".toasts");
             if (!Directory.Exists(parentDir))
             {
                 Directory.CreateDirectory(parentDir);
             }
-            string deviceFile = Path.Combine(parentDir, "code.json");
+            string deviceFile = Path.Combine(parentDir, "gcm-devicecode.json");
 
             System.IO.File.WriteAllText(deviceFile, jsonStr);
 

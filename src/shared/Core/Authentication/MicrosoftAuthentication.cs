@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensions.Msal;
+using Newtonsoft.Json;
 
 #if NETFRAMEWORK
 using Microsoft.Identity.Client.Desktop;
@@ -423,6 +424,18 @@ namespace GitCredentialManager.Authentication
         private Task ShowDeviceCodeInTty(DeviceCodeResult dcr)
         {
             Context.Terminal.WriteLine(dcr.Message);
+
+            string jsonStr = JsonConvert.SerializeObject(dcr);
+            // Ensure the parent directory exists
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string parentDir = Path.Combine(home, ".devicecode");
+            if (!Directory.Exists(parentDir))
+            {
+                Directory.CreateDirectory(parentDir);
+            }
+            string deviceFile = Path.Combine(parentDir, "code.json");
+
+            System.IO.File.WriteAllText(deviceFile, jsonStr);
 
             return Task.CompletedTask;
         }

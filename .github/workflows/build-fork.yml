@@ -26,3 +26,15 @@ jobs:
 
     - name: Build Linux
       run: dotnet build --configuration LinuxRelease
+
+    - name: Upload Debian Package
+      uses: actions/upload-artifact@v3
+      with:
+        name: Debian Package
+        path: out/linux/Packaging.Linux/deb/Release/*
+
+    - name: Upload Binaries
+      uses: actions/upload-artifact@v3
+      with:
+        name: Payload
+        path: out/linux/Packaging.Linux/payload/*

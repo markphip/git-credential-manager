@@ -1,6 +1,8 @@
 name: GCM
 
 on:
+  push:
+    branches: [ codespaces ]
   workflow_dispatch:
 
 jobs:
